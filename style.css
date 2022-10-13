@@ -4,6 +4,7 @@
 body {
     margin: 0;
     padding: 0;
+    
 }
 
 .video-cont {
@@ -15,6 +16,8 @@ body {
 video {
     height: 100%;
     width: 100%;
+    /* -webkit-transform: translate(-1%, 0%);
+    transform: translate(-1%, 0%); */
 }
 
 .action-cont {
@@ -28,6 +31,7 @@ video {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    
 }
 
 .action-cont > * {
@@ -39,6 +43,7 @@ video {
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .record-btn {
