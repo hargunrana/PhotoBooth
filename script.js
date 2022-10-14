@@ -18,17 +18,27 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
 
     recorder = new MediaRecorder(stream);
     recorder.addEventListener("start", () => {
+        console.log("recording started");
         chunks = [];
     });
 
     recorder.addEventListener("dataavailable", (e) => {
         chunks.push(e.data);
+        console.log("data pushed to chunks");
     });
 
     recorder.addEventListener("stop", () => {
         // Convert video
-        // let blob = new Blob(chunks, { type: "video/mp4" });
+        let blob = new Blob(chunks, { type: "video/mp4" });
+        console.log("recording stopped");
         //download video on desktop
+        let videoURL = URL.createObjectURL(blob);
+
+        let a = document.createElement("a");
+        a.href = videoURL;
+        a.download = "myVideo.mp4";
+        a.click();
+
         // store in database
     });
 });
@@ -49,7 +59,7 @@ captureBtnCont.addEventListener("click", () => {
     tool.fillRect(0, 0, canvas.width, canvas.height);
 
     let imageURL = canvas.toDataURL();
-
+    console.log(canvas);
     let image = document.createElement("img");
     image.src = imageURL;
     document.body.append(image);
@@ -64,13 +74,62 @@ recordBtnCont.addEventListener("click", () => {
         // start recording
         recorder.start();
 
+        //change button to stop
+        recordBtn.style.height = "1.5rem";
+        recordBtn.style.width = "1.5rem";
+        recordBtn.style.borderRadius = "10%";
+
         // start timer
         startTimer();
     } else {
         //stop the recording
         recorder.stop();
 
+        //change button to round
+        recordBtn.style.height = "4rem";
+        recordBtn.style.width = "4rem";
+        recordBtn.style.borderRadius = "50%";
+
         //stop the timer
         stopTimer();
     }
 });
+
+// ------------------------------Timer---------------------------------
+
+let timer = document.querySelector(".timer");
+let counter = 0;
+let timerID;
+
+function startTimer() {
+    // Changes on display
+    timer.style.display = "block";
+    timer.style.backgroundColor = "red";
+
+    function displayTimer() {
+        counter++;
+        let totalSeconds = counter;
+
+        let hours = Number.parseInt(totalSeconds / 3600);
+        totalSeconds = totalSeconds % 3600;
+
+        let minutes = Number.parseInt(totalSeconds / 60);
+        totalSeconds = totalSeconds % 60;
+
+        let seconds = totalSeconds;
+
+        hours = hours < 10 ? `0${hours}` : hours;
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+        timer.innerText = `${hours}:${minutes}:${seconds}`;
+    }
+    timerID = setInterval(displayTimer, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerID);
+    timer.innerText = "00:00:00";
+    timer.style.display = "none";
+    timer.style.backgroundColor = "none";
+}

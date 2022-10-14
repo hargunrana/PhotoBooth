@@ -47,7 +47,14 @@ video {
 }
 
 .record-btn {
-    background-color: rgba(255, 0, 0, 0.984);
+    /*  round:
+            h,w = 4rem 
+            radius = 50%
+        stop:
+            h,w = 1.5rem
+            radius = 10%
+     */
+    background-color: red;
     height: 4rem;
     width: 4rem;
     border-radius: 50%;
@@ -60,9 +67,20 @@ video {
 }
 .timer {
     position: absolute;
-    bottom: 5rem;
+    bottom: 10rem;
+    left: 1rem;
     color: white;
     z-index: 2;
+    padding: 5px;
+    border-radius: 5%; 
+    font-size: 30px;
+    display: none;
+
+    /* while recording on */
+    background-color: none;
+    
+    
+
 }
 
 .filter-cont {
@@ -71,6 +89,7 @@ video {
     height: 16rem;
     width: 5rem;
     top: calc((100vh - 16rem) / 2);
+    left: 2rem;
     z-index: 2;
 }
 
