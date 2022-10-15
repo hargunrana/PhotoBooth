@@ -46,6 +46,9 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
 // ---------------------------- Capture a Picture -------------------------------
 
 captureBtnCont.addEventListener("click", () => {
+    //Animation
+    captureBtn.classList.add("scale-capture");
+
     let canvas = document.createElement("canvas");
 
     let tool = canvas.getContext("2d");
@@ -63,6 +66,10 @@ captureBtnCont.addEventListener("click", () => {
     let image = document.createElement("img");
     image.src = imageURL;
     document.body.append(image);
+
+    setTimeout(() => {
+        captureBtn.classList.remove("scale-capture");
+    }, 250);
 });
 
 // ---------------------------- Record a Video -------------------------------
@@ -133,3 +140,17 @@ function stopTimer() {
     timer.style.display = "none";
     timer.style.backgroundColor = "none";
 }
+
+// ------------------------------- Filters -----------------------------------
+
+let filterLayer = document.querySelector(".filter-layer");
+let allFilters = document.querySelectorAll(".filter");
+
+allFilters.forEach((filterElem) => {
+    filterElem.addEventListener("click", () => {
+        transparentColor =
+            getComputedStyle(filterElem).getPropertyValue("background-color");
+
+        filterLayer.style.backgroundColor = transparentColor;
+    });
+});
