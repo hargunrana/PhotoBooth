@@ -39,29 +39,3 @@
 
 
 
-
-
-.image {
-    height: 15rem;
-    width: 10rem;
-    background-color: red;
-    /* display: flex; */
-}
-.image > * {
-}
-
-.picture {
-    height: 80%;
-    width: 80%;
-    background-color: rgb(46, 206, 37);
-}
-
-.download-btn {
-    background-color: burlywood;
-    text-align: center;
-}
-.delete-btn {
-    background-color: black;
-    text-align: center;
-    color: aliceblue;
-}
