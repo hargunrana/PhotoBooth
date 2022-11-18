@@ -1,3 +1,5 @@
+var uid = new ShortUniqueId();
+// var uid = 10;
 let video = document.querySelector("video");
 let captureBtnCont = document.querySelector(".capture-btn-cont");
 let captureBtn = document.querySelector(".capture-btn");
@@ -34,12 +36,27 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
         //download video on desktop
         let videoURL = URL.createObjectURL(blob);
 
+        // To Download
         let a = document.createElement("a");
         a.href = videoURL;
         a.download = "myVideo.mp4";
         a.click();
 
         // store in database
+        if (db) {
+            let videoId = uid();
+            let dbTransaction = db.transaction("video", "readwrite");
+            let videoStore = dbTransaction.objectStore("video");
+            let videoEntry = {
+                id: videoId,
+                url: videoURL,
+            };
+
+            let addRequest = videoStore.add(videoEntry);
+            addRequest.onsuccess = () => {
+                console.log("video added to DB");
+            };
+        }
     });
 });
 
@@ -65,7 +82,24 @@ captureBtnCont.addEventListener("click", () => {
     console.log(canvas);
     let image = document.createElement("img");
     image.src = imageURL;
+
     document.body.append(image);
+
+    // Storing in DB
+    if (db) {
+        let imageId = uid();
+        let dbTransaction = db.transaction("image", "readwrite");
+        let imageStore = dbTransaction.objectStore("image");
+        let imageEntry = {
+            id: imageId,
+            url: imageURL,
+        };
+
+        let addRequest = imageStore.add(imageEntry);
+        addRequest.onsuccess = () => {
+            console.log("image added to DB");
+        };
+    }
 
     setTimeout(() => {
         captureBtn.classList.remove("scale-capture");
