@@ -33,14 +33,16 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
         // Convert video
         let blob = new Blob(chunks, { type: "video/mp4" });
         console.log("recording stopped");
+        console.log(blob);
         //download video on desktop
         let videoURL = URL.createObjectURL(blob);
 
         // To Download
-        let a = document.createElement("a");
-        a.href = videoURL;
-        a.download = "myVideo.mp4";
-        a.click();
+        // console.log(videoURL);
+        // let a = document.createElement("a");
+        // a.href = videoURL;
+        // a.download = "myVideo.mp4";
+        // a.click();
 
         // store in database
         if (db) {

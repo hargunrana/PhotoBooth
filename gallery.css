@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 .body {
     margin: auto;
@@ -44,7 +44,7 @@
     height: 15rem;
     width: 15rem;
     /* background-color: black; */
-    border: 10px solid white;
+    border: 10px solid black;
     margin: 2rem;
 }
 

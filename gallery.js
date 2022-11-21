@@ -32,15 +32,31 @@ setTimeout(() => {
 
                 // adding Html code to the imageElem
                 imageElem.innerHTML = `
-            <div class = "media"> 
-            <img src = "${url}"/>
-            </div>
-            <div class = "delete action-btn">DELETE</div>
-            <div class = "download action-btn">DOWNLOAD</div>
-        `;
+                    <div class = "media"> 
+                    <img src = "${url}"/>
+                    </div>
+                    <div class = "delete action-btn">DELETE</div>
+                    <div class = "download action-btn">DOWNLOAD</div>
+                `;
 
                 // appending the imageElem to the gallery-cont
                 galleryCont.appendChild(imageElem);
+
+                // Action Buttons
+                // console.log(url);
+                let type = "i";
+                // console.log(type);
+                // console.log(imageObj.id);
+
+                let deleteBtn = imageElem.querySelector(".delete");
+                deleteBtn.addEventListener("click", () => {
+                    deleteListener(imageElem, type, imageObj.id);
+                });
+
+                let downloadBtn = imageElem.querySelector(".download");
+                downloadBtn.addEventListener("click", () => {
+                    downloadListener(type, imageObj.id, url);
+                });
             });
         };
         // ------------------- Video DB ---------------------------
@@ -64,18 +80,55 @@ setTimeout(() => {
 
                 videoElem.innerHTML = `
                 <div class = "media"> 
-                <video src = "${url}"/>
+                <video src = "${url}" autoplay/>
                 </div>
                 <div class = "delete action-btn">DELETE</div>
                 <div class = "download action-btn">DOWNLOAD</div>
         `;
 
                 galleryCont.appendChild(videoElem);
+
+                // Action Buttons
+
+                let type = "v";
+
+                let deleteBtn = videoElem.querySelector(".delete");
+                deleteBtn.addEventListener("click", () => {
+                    deleteListener;
+                });
+
+                let downloadBtn = videoElem.querySelector(".download");
+                downloadBtn.addEventListener("click", () => {
+                    downloadListener(type, videoObj.id, url);
+                });
             });
         };
     }
 }, 100);
 
-function deleteListener() {}
+let deleteListener = function deleteListener(e, type, id) {
+    // alert("media Deleted");
+    // console.log(id);
+    if (type == "i") {
+        let imageTransaction = db.transaction("image", "readwrite");
+        let imageStore = imageTransaction.objectStore("image");
+        imageStore.delete(id);
+    } else {
+        let videoTransaction = db.transaction("video", "readwrite");
+        let videoStore = videoTransaction.objectStore("video");
+        videoStore.delete(id);
+    }
 
-function downloadListener() {}
+    e.remove();
+};
+
+let downloadListener = function (type, id, url) {
+    let a = document.createElement("a");
+    a.href = url;
+    if (type == "i") {
+        a.download = "Image-" + id + ".png";
+    } else {
+        a.download = "Video-" + id + ".mp4";
+    }
+    a.click();
+};
