@@ -140,7 +140,7 @@ video {
     animation-iteration-count: 1;
     animation-duration: 1s;
 }
-@keyframes stop-reocrd {
+@keyframes stop-record {
     from{
         height: 1.5rem;
         width: 1.5rem;

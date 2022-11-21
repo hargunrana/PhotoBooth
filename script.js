@@ -20,29 +20,16 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
 
     recorder = new MediaRecorder(stream);
     recorder.addEventListener("start", () => {
-        console.log("recording started");
         chunks = [];
     });
 
     recorder.addEventListener("dataavailable", (e) => {
         chunks.push(e.data);
-        console.log("data pushed to chunks");
     });
 
     recorder.addEventListener("stop", () => {
         // Convert video
         let blob = new Blob(chunks, { type: "video/mp4" });
-        console.log("recording stopped");
-        console.log(blob);
-        //download video on desktop
-        let videoURL = URL.createObjectURL(blob);
-
-        // To Download
-        // console.log(videoURL);
-        // let a = document.createElement("a");
-        // a.href = videoURL;
-        // a.download = "myVideo.mp4";
-        // a.click();
 
         // store in database
         if (db) {
@@ -51,13 +38,10 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
             let videoStore = dbTransaction.objectStore("video");
             let videoEntry = {
                 id: videoId,
-                url: videoURL,
+                blobData: blob,
             };
 
             let addRequest = videoStore.add(videoEntry);
-            addRequest.onsuccess = () => {
-                console.log("video added to DB");
-            };
         }
     });
 });
@@ -81,7 +65,7 @@ captureBtnCont.addEventListener("click", () => {
     tool.fillRect(0, 0, canvas.width, canvas.height);
 
     let imageURL = canvas.toDataURL();
-    console.log(canvas);
+
     let image = document.createElement("img");
     image.src = imageURL;
 
@@ -98,9 +82,6 @@ captureBtnCont.addEventListener("click", () => {
         };
 
         let addRequest = imageStore.add(imageEntry);
-        addRequest.onsuccess = () => {
-            console.log("image added to DB");
-        };
     }
 
     setTimeout(() => {

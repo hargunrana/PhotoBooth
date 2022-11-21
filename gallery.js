@@ -43,11 +43,8 @@ setTimeout(() => {
                 galleryCont.appendChild(imageElem);
 
                 // Action Buttons
-                // console.log(url);
-                let type = "i";
-                // console.log(type);
-                // console.log(imageObj.id);
 
+                let type = "i";
                 let deleteBtn = imageElem.querySelector(".delete");
                 deleteBtn.addEventListener("click", () => {
                     deleteListener(imageElem, type, imageObj.id);
@@ -75,8 +72,8 @@ setTimeout(() => {
 
                 videoElem.setAttribute("class", "media-cont");
                 videoElem.setAttribute("id", videoObj.id);
-
-                let url = videoObj.url;
+                console.log(videoObj.blobData);
+                let url = URL.createObjectURL(videoObj.blobData);
 
                 videoElem.innerHTML = `
                 <div class = "media"> 
@@ -94,7 +91,7 @@ setTimeout(() => {
 
                 let deleteBtn = videoElem.querySelector(".delete");
                 deleteBtn.addEventListener("click", () => {
-                    deleteListener;
+                    deleteListener(videoElem, type, videoObj.id);
                 });
 
                 let downloadBtn = videoElem.querySelector(".download");
@@ -107,8 +104,6 @@ setTimeout(() => {
 }, 100);
 
 let deleteListener = function deleteListener(e, type, id) {
-    // alert("media Deleted");
-    // console.log(id);
     if (type == "i") {
         let imageTransaction = db.transaction("image", "readwrite");
         let imageStore = imageTransaction.objectStore("image");
