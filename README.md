@@ -1,4 +1,5 @@
 <img width="200" alt="Logo" src="https://user-images.githubusercontent.com/81432834/204572303-90132616-2a8a-4fac-95b4-f7c18a2b055e.png">
+
 # PhotoBooth
 
 A basic camera app which clones the UI of the MacOS PhotoBooth App with video recording and image capturing along with Color Filters.
