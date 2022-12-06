@@ -18,6 +18,6 @@ A basic camera app which clones the UI of the MacOS PhotoBooth App with video re
 
 
 <p align="center">
-<img width="800" alt="Screenshot1" src="https://user-images.githubusercontent.com/81432834/204571327-19d5008d-1610-403b-a5b2-0ceedcc0712b.png">
-<img width="800" alt="Screenshot1" src="https://user-images.githubusercontent.com/81432834/204571478-117dbba3-05a6-4c0d-b4fe-2e69fd12ec90.png">
+<img width="700" alt="Screenshot1" src="https://user-images.githubusercontent.com/81432834/204571327-19d5008d-1610-403b-a5b2-0ceedcc0712b.png">
+<img width="700" alt="Screenshot1" src="https://user-images.githubusercontent.com/81432834/204571478-117dbba3-05a6-4c0d-b4fe-2e69fd12ec90.png">
 </p>
